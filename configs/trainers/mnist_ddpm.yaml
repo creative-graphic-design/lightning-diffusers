@@ -1,16 +1,26 @@
+# MNIST DDPM Trainer Configuration
+# This YAML file defines the training configuration for the MNIST DDPM model.
+
+# Use a single device for training (CPU or GPU)
 devices: 1
+
+# Train for 10 epochs
 max_epochs: 10
+
+# Weights & Biases logger configuration
 logger:
   class_path: WandbLogger
   init_args:
-    project: mnist
-    name: ddpm
-    save_dir: wandb/ddpm
-    log_model: false
-    tags:
+    project: mnist # W&B project name
+    name: ddpm # Run name within the project
+    save_dir: wandb/ddpm # Directory to save W&B files
+    log_model: false # Don't log model checkpoints to W&B
+    tags: # Tags for organizing runs in W&B
       - mnist
       - ddpm
+
+# Callbacks for additional functionality during training
 callbacks:
-  class_path: lightning_diffusers.callbacks.MnistDDPMCallback
+  class_path: lightning_diffusers.callbacks.MnistDDPMCallback # Image generation callback
   init_args:
-    num_generate_images: 16
+    num_generate_images: 16 # Generate 16 images at the end of each epoch

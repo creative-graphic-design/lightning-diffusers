@@ -1,3 +1,4 @@
+# Project configuration for Lightning Diffusers
 [project]
 name = "lightning-diffusers"
 version = "0.1.0"
@@ -7,26 +8,35 @@ authors = [
     { name = "Shunsuke KITADA", email = "shunsuke.kitada.0831@gmail.com" },
 ]
 requires-python = ">=3.11"
+# Core dependencies
 dependencies = [
-    "diffusers[torch]>=0.30.0",
-    "jsonargparse[signatures]>=4.27.7",
-    "lightning>=2.0.0",
-    "torch>=2.0.0",
-    "torchvision>=0.15.1",
-    "transformers[torch]>=4.30.0",
-    "wandb>=0.12.10",
+    "diffusers[torch]>=0.30.0",         # Hugging Face Diffusers library with PyTorch support
+    "jsonargparse[signatures]>=4.27.7", # For parsing command line arguments and config files
+    "lightning>=2.0.0",                 # PyTorch Lightning for training organization
+    "torch>=2.0.0",                     # PyTorch deep learning framework
+    "torchvision>=0.15.1",              # Computer vision utilities for PyTorch
+    "transformers[torch]>=4.30.0",      # Hugging Face Transformers library
+    "wandb>=0.12.10",                   # Weights & Biases for experiment tracking
 ]
 
+# Build system configuration
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling"]          # Hatchling build system
 build-backend = "hatchling.build"
 
+# Development dependencies
 [dependency-groups]
-dev = ["mypy>=1.0.0", "pytest>=6.0.0", "ruff>=0.1.5"]
+dev = [
+    "mypy>=1.0.0",
+    "pytest>=6.0.0",
+    "ruff>=0.1.5",
+] # Type checking, testing, and linting
 
+# Command line entry points
 [project.scripts]
-lightning-diffusers = "lightning_diffusers.cli:main"
+lightning-diffusers = "lightning_diffusers.cli:main" # CLI entry point
 
+# MyPy type checking configuration
 [tool.mypy]
 python_version = "3.11"
-ignore_missing_imports = true
+ignore_missing_imports = true # Ignore imports without type hints

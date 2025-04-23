@@ -1,36 +1,47 @@
+# DDPM Model Configuration for MNIST Dataset
+# This YAML file defines the configuration for a Denoising Diffusion Probabilistic Model (DDPM)
+# to be used with the MNIST dataset.
+
+# Main model class path
 class_path: lightning_diffusers.models.MnistDDPMModule
 init_args:
+  # U-Net model configuration
   unet:
     class_path: diffusers.models.UNet2DModel
     init_args:
-      sample_size: 32
-      in_channels: 1
-      out_channels: 1
+      sample_size: 32 # Size of the input/output images (32x32)
+      in_channels: 1 # MNIST images have 1 channel (grayscale)
+      out_channels: 1 # Output is also 1 channel (noise prediction)
+      # Channel dimensions for each resolution level
       block_out_channels:
-        - 64
-        - 128
-        - 256
-        - 512
-      layers_per_block: 3
+        - 64 # First level: 64 channels
+        - 128 # Second level: 128 channels
+        - 256 # Third level: 256 channels
+        - 512 # Fourth level: 512 channels
+      layers_per_block: 3 # Number of residual blocks per resolution level
+      # Downsampling block types for each resolution level
       down_block_types:
-        - DownBlock2D
-        - DownBlock2D
-        - DownBlock2D
-        - DownBlock2D
+        - DownBlock2D # First downsampling block
+        - DownBlock2D # Second downsampling block
+        - DownBlock2D # Third downsampling block
+        - DownBlock2D # Fourth downsampling block
+      # Upsampling block types for each resolution level
       up_block_types:
-        - UpBlock2D
-        - UpBlock2D
-        - UpBlock2D
-        - UpBlock2D
+        - UpBlock2D # First upsampling block
+        - UpBlock2D # Second upsampling block
+        - UpBlock2D # Third upsampling block
+        - UpBlock2D # Fourth upsampling block
 
+  # Noise scheduler configuration
   noise_scheduler:
     class_path: diffusers.schedulers.DDPMScheduler
     init_args:
-      num_train_timesteps: 500
-      beta_start: 1e-4
-      beta_end: 0.02
+      num_train_timesteps: 500 # Total number of timesteps in the diffusion process
+      beta_start: 1e-4 # Starting value for noise schedule
+      beta_end: 0.02 # Ending value for noise schedule
 
+  # Optimizer configuration
   optimizer:
-    class_path: torch.optim.AdamW
+    class_path: torch.optim.AdamW # Using AdamW optimizer
     init_args:
-      lr: 1e-4
+      lr: 1e-4 # Learning rate
