@@ -22,9 +22,15 @@ init_args:
         - UpBlock2D
         - UpBlock2D
         - UpBlock2D
+
   noise_scheduler:
     class_path: diffusers.schedulers.DDPMScheduler
     init_args:
       num_train_timesteps: 500
       beta_start: 1e-4
       beta_end: 0.02
+
+  optimizer:
+    class_path: torch.optim.AdamW
+    init_args:
+      lr: 1e-4

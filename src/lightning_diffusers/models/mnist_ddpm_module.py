@@ -1,4 +1,4 @@
-from typing import Tuple, cast
+from typing import Callable, Iterable, Tuple, cast
 
 import lightning.pytorch as pl
 import torch
@@ -6,18 +6,22 @@ import torch.nn.functional as F
 from diffusers.models import UNet2DModel
 from diffusers.schedulers import DDPMScheduler
 
+OptimizerCallable = Callable[[Iterable], torch.optim.Optimizer]
+
 
 class MnistDDPMModule(pl.LightningModule):
     def __init__(
         self,
         unet: UNet2DModel,
         noise_scheduler: DDPMScheduler,
+        optimizer: OptimizerCallable,
     ) -> None:
         super().__init__()
         self.save_hyperparameters()
 
         self.unet = unet
         self.noise_scheduler = noise_scheduler
+        self.optimizer = optimizer
 
     def forward(self, x_noisy: torch.Tensor, t: torch.Tensor) -> torch.Tensor:
         return self.unet(x_noisy, t).sample
@@ -48,3 +52,7 @@ class MnistDDPMModule(pl.LightningModule):
         self.log(name="train-loss", value=loss)
 
         return loss
+
+    def configure_optimizers(self) -> torch.optim.Optimizer:
+        optimizer = self.optimizer(self.parameters())
+        return optimizer
