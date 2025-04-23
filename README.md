@@ -1,4 +1,4 @@
-# lightning-diffusers: 🤗 Diffusers meets ⚡ Lightning
+# `lightning-diffusers`: 🤗 Diffusers meets ⚡ PyTorch-Lightning
 
 ```shell
 WANDB_API_KEY=xxxxxxx uv run lightning-diffusers fit \
