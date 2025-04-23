@@ -1,54 +1,83 @@
-# lightning.pytorch==2.5.1
+# Base Configuration for Lightning Diffusers
+# This is the base configuration file for PyTorch Lightning (version 2.5.1)
+# It defines default values that can be overridden by specific configuration files.
+
+# Enable reproducibility by setting random seeds
 seed_everything: true
 
+# Model configuration (to be defined in specific config files)
 model: null
 
+# Data configuration (to be defined in specific config files)
 data: null
 
+# Optimizer configuration (to be defined in specific config files)
 optimizer: null
 
+# Learning rate scheduler configuration (to be defined in specific config files)
 lr_scheduler: null
 
+# Checkpoint path for resuming training (to be defined in specific config files)
 ckpt_path: null
 
+# Trainer configuration with default values
 trainer:
-  accelerator: auto
-  strategy: auto
-  devices: auto
-  num_nodes: 1
-  precision: null
-  logger: null
-  callbacks: null
-  fast_dev_run: false
-  max_epochs: null
-  min_epochs: null
-  max_steps: -1
-  min_steps: null
-  max_time: null
-  limit_train_batches: null
-  limit_val_batches: null
-  limit_test_batches: null
-  limit_predict_batches: null
-  overfit_batches: 0.0
-  val_check_interval: null
-  check_val_every_n_epoch: 1
-  num_sanity_val_steps: null
-  log_every_n_steps: null
-  enable_checkpointing: null
-  enable_progress_bar: null
-  enable_model_summary: null
-  accumulate_grad_batches: 1
-  gradient_clip_val: null
-  gradient_clip_algorithm: null
-  deterministic: null
-  benchmark: null
-  inference_mode: true
-  use_distributed_sampler: true
-  profiler: null
-  detect_anomaly: false
-  barebones: false
-  plugins: null
-  sync_batchnorm: false
-  reload_dataloaders_every_n_epochs: 0
-  default_root_dir: null
-  model_registry: null
+  # Hardware and distribution settings
+  accelerator: auto # Automatically select accelerator (CPU, GPU, TPU, etc.)
+  strategy: auto # Automatically select training strategy (DDP, FSDP, etc.)
+  devices: auto # Automatically select number of devices
+  num_nodes: 1 # Number of compute nodes to use
+  precision: null # Numerical precision (16, 32, 64, etc.)
+
+  # Logging and callbacks
+  logger: null # Logger configuration
+  callbacks: null # Callbacks configuration
+
+  # Training loop settings
+  fast_dev_run: false # Run a single batch for debugging
+  max_epochs: null # Maximum number of epochs
+  min_epochs: null # Minimum number of epochs
+  max_steps: -1 # Maximum number of steps (-1 means no limit)
+  min_steps: null # Minimum number of steps
+  max_time: null # Maximum training time
+
+  # Batch limits
+  limit_train_batches: null # Limit number of training batches
+  limit_val_batches: null # Limit number of validation batches
+  limit_test_batches: null # Limit number of test batches
+  limit_predict_batches: null # Limit number of prediction batches
+  overfit_batches: 0.0 # Number of batches to overfit on (for debugging)
+
+  # Validation settings
+  val_check_interval: null # How often to check validation
+  check_val_every_n_epoch: 1 # Check validation every N epochs
+  num_sanity_val_steps: null # Number of validation steps to run before training
+
+  # Logging and checkpointing
+  log_every_n_steps: null # Log metrics every N steps
+  enable_checkpointing: null # Enable model checkpointing
+  enable_progress_bar: null # Enable progress bar
+  enable_model_summary: null # Enable model summary
+
+  # Optimization settings
+  accumulate_grad_batches: 1 # Number of batches to accumulate gradients
+  gradient_clip_val: null # Gradient clipping value
+  gradient_clip_algorithm: null # Gradient clipping algorithm
+
+  # Performance settings
+  deterministic: null # Use deterministic algorithms
+  benchmark: null # Use cudnn benchmark
+  inference_mode: true # Use torch.inference_mode() instead of no_grad()
+  use_distributed_sampler: true # Use distributed sampler with DDP
+
+  # Debugging and profiling
+  profiler: null # Profiler to use
+  detect_anomaly: false # Detect anomalies in the computational graph
+  barebones: false # Use barebones version of trainer
+
+  # Miscellaneous
+  plugins: null # Plugins to use
+  sync_batchnorm: false # Synchronize batch normalization
+  reload_dataloaders_every_n_epochs: 0 # Reload dataloaders every N epochs
+  default_root_dir: null # Default directory for logs and checkpoints
+  model_registry: null # Model registry for experiment tracking
