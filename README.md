@@ -1,7 +1,8 @@
 # lightning-diffusers: 🤗 Diffusers meets ⚡ Lightning
 
 ```shell
-WANDB_API_KEY=xxxxxxx uv run lightning-diffusers fit --config configs/mnist.yaml
+WANDB_API_KEY=xxxxxxx uv run lightning-diffusers fit \
+    --config wandb/ddpm/config.yaml
 ````
 
 ```shell
