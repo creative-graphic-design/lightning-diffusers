@@ -1,0 +1,16 @@
+devices: 1
+max_epochs: 10
+logger:
+  class_path: WandbLogger
+  init_args:
+    project: mnist
+    name: ddpm
+    save_dir: wandb/ddpm
+    log_model: false
+    tags:
+      - mnist
+      - ddpm
+callbacks:
+  class_path: lightning_diffusers.callbacks.MnistDDPMCallback
+  init_args:
+    num_generate_images: 16
